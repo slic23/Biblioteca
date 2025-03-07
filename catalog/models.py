@@ -103,6 +103,15 @@ class Author(models.Model):
         return '%s %s' % (self.first_name,self.last_name)
     
 
+
+
+    """
+        muchos autores escriben con seudonimos modificar mas tarde añadir una columna para ello  
+        tambien establecer las fechas teniendo en cuenta  el peor caso,por ejemplo supongamos que quiero 
+        meter a Homero, establecer las fechas por ahora se deja así (ejercicio para después) mirar B.C dates en python 
+
+    """
+
 class Lenguage(models.Model):
     """
         Este modelo tratara los diferentes lenguajes     
