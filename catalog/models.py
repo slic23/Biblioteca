@@ -23,10 +23,16 @@ class Book(models.Model):
     """
 
     title = models.CharField(max_length=50, verbose_name="Titulo")
-    author = models.ManyToManyField('Author',blank=True,null=True, verbose_name="Autor")
+    author = models.ManyToManyField('Author',blank=True, verbose_name="Autor")
     summary = models.TextField(max_length=1000,help_text="ingrese una breve descripcion del libro", verbose_name="sinopsis")
     isbn = models.CharField('ISBN',max_length=13,help_text="13 Caracteres <a href='https://www.isbn-international.org/content/what-isbn'>ISBN number</a>")
-    Genre = models.ManyToManyField(Genre,blank=True,null=True)
+    Genre = models.ManyToManyField(Genre,blank=True)
+    lenguaje = models.ForeignKey('Lenguage',null=True,blank=True, on_delete= models.CASCADE , verbose_name="Lenguaje original")
+    """
+        Es importante tener este dato por el cual se vera el numero de popularidad agrupado en los diferentes idiomas en que sea traducido. 
+        la entidad traducción puede que mas tarde la define. 
+
+    """
 
     def __str__(self):
         return self.title
@@ -48,6 +54,7 @@ class BookInstance(models.Model):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id unico para cada ejemplar")
+    Lenguage = models.ManyToManyField('Lenguage',blank=True)
     book = models.ForeignKey(Book, null=False, on_delete= models.CASCADE , verbose_name="Libro")
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True,blank=True)
@@ -66,7 +73,7 @@ class BookInstance(models.Model):
     def __str__(self):
         return '%s %s' % (self.id,self.book.title)
     
-    
+
 
 
 class Author(models.Model):
@@ -94,3 +101,27 @@ class Author(models.Model):
         como instancia de ese objeto, se hará hincapie que se identifique por su nombre , apellido
         """
         return '%s %s' % (self.first_name,self.last_name)
+    
+
+class Lenguage(models.Model):
+    """
+        Este modelo tratara los diferentes lenguajes     
+    """
+    nombre = models.CharField('Lenguaje',max_length=20)
+
+    def __str__(self):
+        return self.nombre
+    
+
+
+
+
+
+    
+
+
+        
+    
+
+
+
