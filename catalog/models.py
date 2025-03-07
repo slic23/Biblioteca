@@ -1,3 +1,96 @@
 from django.db import models
+from django.urls import reverse
+import uuid
 
 # Create your models here.
+class Genre(models.Model):
+    name = models.CharField(max_length=200,help_text="Ingrese nombre el nombre del género (p. ej. Ciencia Ficción, Poesía Francesa etc.)) ", verbose_name="Genero")
+
+    def __str__(self):
+        """
+        Cadena que representa a la instancia particular del modelo (p. ej. en el sitio de administración )
+        """
+        return self.name 
+    
+
+
+
+
+
+class Book(models.Model):
+    """
+    Modelo que representa un libro
+    """
+
+    title = models.CharField(max_length=50, verbose_name="Titulo")
+    author = models.ManyToManyField('Author',blank=True,null=True, verbose_name="Autor")
+    summary = models.TextField(max_length=1000,help_text="ingrese una breve descripcion del libro", verbose_name="sinopsis")
+    isbn = models.CharField('ISBN',max_length=13,help_text="13 Caracteres <a href='https://www.isbn-international.org/content/what-isbn'>ISBN number</a>")
+    Genre = models.ManyToManyField(Genre,blank=True,null=True)
+
+    def __str__(self):
+        return self.title
+    
+
+    def ruta_particular_libro(self):
+        """
+            Esto devuelve la ruta de un libro en particular llamando a una url con un determinado name, pasandole su clave 
+
+        """
+
+        return reverse('detalle-libro', args=[str(self.id)])
+
+
+
+class BookInstance(models.Model):
+    """
+        Definiendo el ejemplar de cada libro. 
+    """
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="id unico para cada ejemplar")
+    book = models.ForeignKey(Book, null=False, on_delete= models.CASCADE , verbose_name="Libro")
+    imprint = models.CharField(max_length=200)
+    due_back = models.DateField(null=True,blank=True)
+    LOAN_STATUS = (('m','Maintenence'),('o','On Loan'),('a','available'),('r','Reserved'))
+    status = models.CharField(max_length=1,choices=LOAN_STATUS,default='m',blank=True , help_text="Disponibilidad del libro")
+
+    class Meta:
+        """
+        Esto ordenara la salida de cualquier query de
+        de una manera ordenada por la fecha en este caso de devolución desde la fecha más antigua a la mas reciente. 
+
+        """
+        ordering = ["due_back"]
+
+
+    def __str__(self):
+        return '%s %s' % (self.id,self.book.title)
+    
+    
+
+
+class Author(models.Model):
+    """
+    un modelo que representa un autor
+    
+    """
+    # sería una interesante funcionalidad averiguar la fecha de cumpleaños del autor y avisar al lector. 
+    first_name = models.CharField('Nombre',max_length=100)
+    last_name = models.CharField('Apellido',max_length=100)
+    date_of_birth = models.DateField(null=True,blank=True)
+    date_of_death = models.DateField('Died',null=True,blank=True)
+    
+    def autor_concreto(self):
+        """
+        Devolviendo la url de un autor en concreto. 
+        
+        """
+
+        return reverse('autor-concreto',args=[str(self.id)])
+    
+
+    def __str__(self):
+        """
+        como instancia de ese objeto, se hará hincapie que se identifique por su nombre , apellido
+        """
+        return '%s %s' % (self.first_name,self.last_name)
