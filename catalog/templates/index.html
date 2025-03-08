@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{%block title%} <title>Index</title> {%endblock%}
+{% block content %}
+
+<h1>Biblioteca de Alejandría</h1>
+<p>Bienvenido a la biblioteca, desarrollada por  <em>Issam Ramdani</em>
+ a partir de la base del tutorial en  <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Extensions/Server-side/Django/Tutorial_local_library_website">Mozilla Developer Network.</a></p>
+
+
+<h3>Contenido de la biblioteca</h3>
+<ul>
+
+    <li><strong>Books:</strong> {{ numero_libros }}</li>
+    <li><strong>Copies:</strong> {{ numero_ejemplares }}</li>
+    <li><strong>Copies available:</strong> {{ ejemplares_disponibles}}</li>
+    <li><strong>Authors:</strong> {{ numero_autores }}</li>
+    <li><strong>Gerens:</strong> {{numero_generos}}</li>
+    <li><strong>Palabras:</strong> {{palabrasEncontradas }}</li>
+
+</ul> 
+
+
+
+{% endblock %}
+
+
