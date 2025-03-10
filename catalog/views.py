@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from .models import *
+from django.views import generic 
 
 # Create your views here.
 def index(request):
@@ -28,5 +29,21 @@ def index(request):
 
 
     return render(request,'index.html',contexto)
+
+
+class Listarlibros(generic.ListView):
+    model = Book
+    #necesito obtener el nombre del autor teniendo en cuenta que Book , Author es una ManyTomany 
+
+
+
+class autor(generic.DeleteView):
+    model = Author
+    template_name = "autor-detalle.html"
+
+
+       
+    
+    
 
 

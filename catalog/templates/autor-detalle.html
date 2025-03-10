@@ -1,0 +1,25 @@
+{% extends 'base_generic.html'%}
+
+{%block content%}
+{% if object %}
+
+<h2>{{object}}</h2>
+
+{%if object.foto%}
+<img src="{{object.foto.url}}" alt="foto">
+{%endif%}
+{%if object.book_set%}
+ <p>Libros escritros</p>
+ <ul>
+    {%for i in object.book_set.all%}
+    <li>{{i}}</li>
+    {%endfor%}
+ </ul>
+{%endif%}
+
+{%else%}
+<h3  class="text-danger">No tenemos datos de este autor</h3>
+
+
+{%endif%}
+{%endblock%}

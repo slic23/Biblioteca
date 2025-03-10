@@ -46,6 +46,13 @@ class Book(models.Model):
 
         return reverse('detalle-libro', args=[str(self.id)])
 
+    def ruta_del_autor(self):
+        """
+            Esto devuelve la ruta de un libro en particular llamando a una url con un determinado name, pasandole su clave 
+
+        """
+
+        return reverse('Author', args=[str(self.id)])
 
 
 class BookInstance(models.Model):
@@ -86,6 +93,7 @@ class Author(models.Model):
     last_name = models.CharField('Apellido',max_length=100)
     date_of_birth = models.DateField(null=True,blank=True)
     date_of_death = models.DateField('Died',null=True,blank=True)
+    foto = models.ImageField(upload_to="ImagenesEscritores/", null=True)
     
     def autor_concreto(self):
         """
