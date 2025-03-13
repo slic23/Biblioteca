@@ -1,0 +1,28 @@
+{% extends 'base_generic.html'%}
+
+{%block content%}
+
+<h2>Bienvenido a la calculadora !!!</h2>
+<p>Usa sesiones para calcular</p>
+
+<hr>
+
+<div>{{numero}}</div>
+<div>{{resultado}}</div>
+<button> <a href="{%url 'calculadora' 1 %}">1</a> </button>
+<button><a href="{%url 'calculadora' 2 %}">2</a></button>
+<button><a href="{% url 'calculadora' 3 %}">3</a></button>
+<button><a href="{% url 'calculadora' 'suma' %}">+</a></button>
+<button ><a href="{%url 'calculadora' 'CE' %}">CE</a></button><br>
+<button><a href="{%url 'calculadora' 4%}">4</a></button>
+<button><a href="{%url 'calculadora' 5%}">5</a></button>
+<button><a href="{%url 'calculadora' 6%}">6</a></button>
+<button><a href="{% url 'calculadora' 'resta'%}">-</a></button>
+<button><a href="{%url 'calculadora' 'parentes' %}">parent</a></button><br>
+<button><a href="{%url 'calculadora' 7 %}">7</a></button>
+<button><a href="{%url 'calculadora' 8 %}">8</a></button>
+<button><a href="{%url 'calculadora' 9%}">9</a></button>
+<button><a href="{%url 'calculadora' 'multiplicacion'%}">*</a></button>
+<button><a href="{%url 'calculadora' 'division' %}">/</a></button>
+
+{%endblock%}

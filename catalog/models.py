@@ -95,13 +95,13 @@ class Author(models.Model):
     date_of_death = models.DateField('Died',null=True,blank=True)
     foto = models.ImageField(upload_to="ImagenesEscritores/", null=True)
     
-    def autor_concreto(self):
+    def get_absolute_url(self):
         """
         Devolviendo la url de un autor en concreto. 
         
         """
 
-        return reverse('autor-concreto',args=[str(self.id)])
+        return reverse('Author',args=[str(self.pk)])
     
 
     def __str__(self):
@@ -110,7 +110,7 @@ class Author(models.Model):
         """
         return '%s %s' % (self.first_name,self.last_name)
     
-
+    
 
 
     """
