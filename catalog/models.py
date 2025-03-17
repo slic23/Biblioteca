@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 import uuid
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Genre(models.Model):
@@ -129,6 +130,22 @@ class Lenguage(models.Model):
     def __str__(self):
         return self.nombre
     
+
+
+class UsuarioBiblioteca(models.Model):
+    """
+    Este modelo tratra los datos del usuario estara enganchado con el usuario del sistema en una relacion de uno a uno
+    """
+
+    nombre = models.CharField(max_length=100,verbose_name="Nombre")
+    apellidos = models.CharField(max_length=100,verbose_name="Apellidos")
+    FechaNacimiento = models.DateField(verbose_name="Fecha de Nacimiento")
+    email = models.EmailField(verbose_name="Correo Electronico")
+    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE) #puedo tener usuarios sin capacidad para logearse 
+
+    def __str__(self):
+        return  f"{self.nombre} {self.apellidos}"
+
 
 
 
