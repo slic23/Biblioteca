@@ -1,9 +1,9 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from .models import *
 from django.views import generic 
 from django.core.paginator import Paginator
 import re 
-
+from .forms import registrobibli
 # Create your views here.
 def index(request):
 
@@ -122,3 +122,34 @@ def calculadora(request,signoNumero = None):
 
 
 
+
+def Registro(request):
+    """
+    Formulario de registro
+    
+    """
+
+    if request.method == "POST":
+        form = registrobibli(request.POST)
+        if form.is_valid():
+            nombre_form =  form.cleaned_data["nombre"]
+            apellido = form.cleaned_data["apellidos"]
+            contras = form.cleaned_data["password"]
+            repcontras = form.cleaned_data["repetir"]
+            fecha = form.cleaned_data["FechaNacimiento"]
+            email_form = form.cleaned_data["email"]
+            
+            usuario = User.objects.create_user(username = nombre_form, password = repcontras , email = email_form)
+            #usuario.save()
+            usuario2 = UsuarioBiblioteca(nombre = nombre_form,password = contras, repetir = repcontras,apellidos = apellido, FechaNacimiento = fecha , email = email_form , user = usuario) 
+            usuario2.save()
+            return HttpResponseRedirect(reverse('index'))
+    else:
+       form = registrobibli()
+    contexto = {
+        'form':form
+   }
+    
+    return render(request,'registrobiblio.html',contexto)
+    
+    

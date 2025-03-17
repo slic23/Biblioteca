@@ -95,6 +95,7 @@ class Author(models.Model):
     date_of_birth = models.DateField(null=True,blank=True)
     date_of_death = models.DateField('Died',null=True,blank=True)
     foto = models.ImageField(upload_to="ImagenesEscritores/", null=True)
+    biografia = models.TextField(null=True,blank=True)
     
     def get_absolute_url(self):
         """
@@ -138,24 +139,15 @@ class UsuarioBiblioteca(models.Model):
     """
 
     nombre = models.CharField(max_length=100,verbose_name="Nombre")
+    """
+    Este null en password y repetir contraseña es por que lo introduci tarde y no podía borrar los datos 
+    """
+    password = models.CharField(max_length=100,verbose_name="Contraseña", default="1234")
+    repetir = models.CharField(max_length=100,verbose_name="Vuelve a introducir contraseña", default="1234")
     apellidos = models.CharField(max_length=100,verbose_name="Apellidos")
-    FechaNacimiento = models.DateField(verbose_name="Fecha de Nacimiento")
+    FechaNacimiento = models.DateField("Fecha Nacimiento", null=True)
     email = models.EmailField(verbose_name="Correo Electronico")
     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE) #puedo tener usuarios sin capacidad para logearse 
-
     def __str__(self):
         return  f"{self.nombre} {self.apellidos}"
-
-
-
-
-
-
-    
-
-
-        
-    
-
-
 

@@ -15,7 +15,7 @@ class ejemplares(admin.ModelAdmin):
 
 class AdminAuthor(admin.ModelAdmin):
     list_display = ("first_name","last_name","date_of_birth","date_of_death")
-    fields = ['first_name','last_name',('date_of_birth','date_of_death'),'foto']
+    fields = ['first_name','last_name',('date_of_birth','date_of_death'),'foto' , "biografia"]
     
     #se puede usar elemento exclude para excluir campos esto tendra mas efecto en los formularios
 
