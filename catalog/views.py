@@ -116,7 +116,7 @@ def calculadora(request,signoNumero = None):
             print(f"esta es la condicion -----> {request.session['condicion']}")
             consultaNumeros = request.session['Numeros']
             resultado()
-
+       
         
     return  render(request,'calculadora.html',contexto)
 
@@ -149,6 +149,8 @@ def Registro(request):
     contexto = {
         'form':form
    }
+    
+    print(form)
     
     return render(request,'registrobiblio.html',contexto)
     
