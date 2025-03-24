@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 import uuid
 from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 class Genre(models.Model):
@@ -39,21 +40,14 @@ class Book(models.Model):
         return self.title
     
 
-    def ruta_particular_libro(self):
+    def get_absolute_url(self):
         """
             Esto devuelve la ruta de un libro en particular llamando a una url con un determinado name, pasandole su clave 
 
         """
 
-        return reverse('detalle-libro', args=[str(self.id)])
+        return reverse('detalle-libro', args=[str(self.pk)])
 
-    def ruta_del_autor(self):
-        """
-            Esto devuelve la ruta de un libro en particular llamando a una url con un determinado name, pasandole su clave 
-
-        """
-
-        return reverse('Author', args=[str(self.id)])
 
 
 class BookInstance(models.Model):
@@ -68,6 +62,12 @@ class BookInstance(models.Model):
     due_back = models.DateField(null=True,blank=True)
     LOAN_STATUS = (('m','Maintenence'),('o','On Loan'),('a','available'),('r','Reserved'))
     status = models.CharField(max_length=1,choices=LOAN_STATUS,default='m',blank=True , help_text="Disponibilidad del libro")
+    prestado = models.ForeignKey('UsuarioBiblioteca',on_delete=models.CASCADE,null=True, blank=True) # prestado a usuario
+    @property
+    def is_overdu(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
 
     class Meta:
         """
@@ -150,4 +150,8 @@ class UsuarioBiblioteca(models.Model):
     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE) #puedo tener usuarios sin capacidad para logearse 
     def __str__(self):
         return  f"{self.nombre} {self.apellidos}"
+    
+    
+    
+    
 

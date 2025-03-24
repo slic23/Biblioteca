@@ -4,10 +4,10 @@ from django.contrib import admin
 from .models import * 
 
 class ejemplares(admin.ModelAdmin):
-    list_filter = ("due_back","status")
-    list_display = ("book_id","status","due_back","id")
+    list_filter = ("due_back","status","prestado")
+    list_display = ("book_id","status","due_back","id","prestado")
     fieldsets = ((
-        None,{'fields':('book','imprint','id')}
+        None,{'fields':('book','imprint','id',"prestado")}
 
     ) , 
     ('availability', {'fields':('status','due_back')}))

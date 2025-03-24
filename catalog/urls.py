@@ -7,6 +7,8 @@ urlpatterns = [
   path('Autores/',views.autores.as_view(),name="autores"),
   path('calculadora/<str:signoNumero>',views.calculadora, name="calculadora"),
   path('calculadora/',views.calculadora,name="calculadora"),
-  path('registro-biblioteca/',views.Registro,name="registro")
+  path('registro-biblioteca/',views.Registro,name="registro"),
+  path("prestados/",views.listadoPrestados.as_view(),name="prestados"),
+  path("detalle-libro/<int:pk>/",views.detalleLibro.as_view(),name="detalle-libro")
 
 ]

@@ -4,6 +4,9 @@ from django.views import generic
 from django.core.paginator import Paginator
 import re 
 from .forms import registrobibli
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+
 # Create your views here.
 def index(request):
 
@@ -150,8 +153,29 @@ def Registro(request):
         'form':form
    }
     
-    print(form)
+    #print(form)
     
     return render(request,'registrobiblio.html',contexto)
     
     
+    
+class listadoPrestados(LoginRequiredMixin,generic.ListView):
+    "Libros que ha tomado prestado el usuario"
+    
+    model = BookInstance
+    template_name = "prestados.html"
+    
+    def get_queryset(self):
+        print(self.request.user)
+        print(f"Este es el pk del usuario {self.request.user.id}")
+        return BookInstance.objects.filter(prestado__nombre = self.request.user).filter(status__exact = "o").order_by("due_back")
+        
+        
+        
+        
+class detalleLibro(generic.DetailView):
+    model = Book
+    template_name = "detalle-libro.html"
+    
+        
+        

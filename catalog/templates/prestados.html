@@ -1,0 +1,24 @@
+{% extends 'base_generic.html'%}
+
+{%block content%}
+
+{% if object_list%}
+<ul>
+{% for libro in object_list %}
+<li class="{%if libro.is_overdu%} text-danger {%endif%}"> 
+    <a href="{%url 'detalle-libro' libro.book.pk%}">{{libro.book.title}}
+</a></li>
+
+
+
+{% endfor %}
+</ul>
+
+{% else %}
+
+<h2 class="text-danger">NO HAY PRESTADOS</h2>
+
+
+{% endif %}
+
+{% endblock %}
