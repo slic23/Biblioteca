@@ -27,7 +27,9 @@
           <li><a href="{% url 'libros' %}">All books</a></li>
           <li><a href="{%url 'autores'%}">All authors</a></li>
           <li><a href="{%url 'calculadora'%}">Calculadora</a></li>
+          {%if not user.is_authenticated%}
           <li><a href="{%url 'registro'%}">Registro Usuario</a></li>
+          {%endif%}
           {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>
      <li>

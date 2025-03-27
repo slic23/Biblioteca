@@ -1,9 +1,18 @@
 {%extends 'base_generic.html' %}
 
 {%block content%}
-<h1>Detalle Libro: </h1>
 
- <h2>{{object.title}}</h2>
+
+ <h1>{{object.title}}</h1>
+ <hr>
+
+  {%if object.portada%}
+  
+   <img class="text-center" style="width: 15%; height: auto;" src="{{ object.portada}}" alt="">
+   
+   {%endif%}
+   <hr width="2px">
+   <p style="width: 60%;">{{object.summary}}</p>
 
 {%endblock%}
 

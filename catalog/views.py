@@ -163,6 +163,7 @@ class listadoPrestados(LoginRequiredMixin,generic.ListView):
     "Libros que ha tomado prestado el usuario"
     
     model = BookInstance
+    redirect_field_name = 'index/'
     template_name = "prestados.html"
     
     def get_queryset(self):

@@ -4,12 +4,12 @@
 {% if object %}
 
 <h2>{{object}}</h2>
-
+<hr>
 {%if object.foto%}
-<img src="{{object.foto.url}}" alt="foto">
+<img style="width: 15%;" src="{{object.foto.url}}" alt="foto">
 {%endif%}
 {%if object.book_set%}
- <p>Libros escritros</p>
+ <p style="padding-top: 3em;">Libros escritros</p>
  <ul>
     {%for i in object.book_set.all%}
     <li>{{i}}</li>
@@ -18,7 +18,8 @@
 {%endif%}
 
 <h3>Biografía</h3>
-<p>{{object.biografia}}
+<hr>
+<p style="width: 60%;">{{object.biografia}}
 </p>
 
 {%else%}

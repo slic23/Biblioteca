@@ -30,6 +30,7 @@ class Book(models.Model):
     isbn = models.CharField('ISBN',max_length=13,help_text="13 Caracteres <a href='https://www.isbn-international.org/content/what-isbn'>ISBN number</a>")
     Genre = models.ManyToManyField(Genre,blank=True)
     lenguaje = models.ForeignKey('Lenguage',null=True,blank=True, on_delete= models.CASCADE , verbose_name="Lenguaje original")
+    portada = models.URLField(max_length=200,null=True,blank=True)
     """
         Es importante tener este dato por el cual se vera el numero de popularidad agrupado en los diferentes idiomas en que sea traducido. 
         la entidad traducción puede que mas tarde la define. 
@@ -48,7 +49,8 @@ class Book(models.Model):
 
         return reverse('detalle-libro', args=[str(self.pk)])
 
-
+    class Meta:
+        ordering = ["title"]
 
 class BookInstance(models.Model):
     """
