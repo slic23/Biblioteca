@@ -9,6 +9,6 @@ urlpatterns = [
   path('calculadora/',views.calculadora,name="calculadora"),
   path('registro-biblioteca/',views.Registro,name="registro"),
   path("prestados/",views.listadoPrestados.as_view(),name="prestados"),
-  path("detalle-libro/<int:pk>/",views.detalleLibro.as_view(),name="detalle-libro")
-
+  path("detalle-libro/<int:pk>/",views.detalleLibro.as_view(),name="detalle-libro"),
+  path("todos-prestados/",views.LibrosPrestados.as_view(),name = 'allborrowed')
 ]

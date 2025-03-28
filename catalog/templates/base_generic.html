@@ -38,6 +38,7 @@
          <button type="submit" class="btn btn-link">Logout</button>
        </form>
      </li>
+     <li><a href="{% url 'prestados' %}">Mis libros prestados</a></li>
    {% else %}
      
      <form action="{% url 'login' %}" method="post"> {% csrf_token %}

@@ -1,0 +1,15 @@
+{%extends 'base_generic.html'%}
+
+{%block content %}
+
+{%if object_list %}
+
+<p>Hay libros prestados</p>
+
+{%else%}
+
+<h2 class="danger"> no hay libros prestados</h2>
+
+
+{%endif%}
+{%endblock%}

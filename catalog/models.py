@@ -153,7 +153,10 @@ class UsuarioBiblioteca(models.Model):
     def __str__(self):
         return  f"{self.nombre} {self.apellidos}"
     
-    
+    class Meta:
+        permissions = (("can_mark_returned","marcar como devuelto"),)
+        
+
     
     
 

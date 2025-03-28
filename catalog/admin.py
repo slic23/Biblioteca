@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Permission
 
 # Register your models here.
 from .models import * 
@@ -31,5 +32,6 @@ admin.site.register(Lenguage)
 admin.site.register(Author,AdminAuthor)
 admin.site.register(BookInstance,ejemplares)
 admin.site.register(Genre)
+admin.site.register(Permission)
 
 
