@@ -3,8 +3,15 @@
 {%block content %}
 
 {%if object_list %}
+<h1>Libros prestados</h1>
+<ul>
+{%for a in object_list%}
+ 
+<li class="{%if a.is_overdu%} text-danger {%endif%}"><a href="">{{a.book.title}} ({{a.due_back}}) - {{a.prestado.nombre}}</a></li>
 
-<p>Hay libros prestados</p>
+{%endfor%}
+
+</ul>
 
 {%else%}
 
