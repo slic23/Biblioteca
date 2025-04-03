@@ -1,0 +1,16 @@
+{%extends 'base_generic.html'%}
+
+{%block content%}
+
+<h1>Eleminar Autor</h1>
+
+<p>Estas seguro que quieres eleminar este autor: {{author}}</p>
+
+<form action="" method="post">
+
+    {% csrf_token %}
+
+    <input type="submit" action="" value="Si, borrar"/>
+</form>
+
+{%endblock%}

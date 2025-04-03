@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,HttpResponseRedirect
+from django.shortcuts import render,HttpResponse,HttpResponseRedirect,get_object_or_404
 from .models import *
 from django.views import generic 
 from django.core.paginator import Paginator
@@ -7,6 +7,8 @@ from .forms import registrobibli
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import PermissionRequiredMixin
+import datetime
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -184,4 +186,42 @@ class LibrosPrestados(PermissionRequiredMixin,generic.ListView):
 
     def get_queryset(self):
         return BookInstance.objects.filter(status__exact="o").order_by("due_back")
+
+
+from .forms import RenewBook
+def  Librarian_renovar(request,pk):
+    ejemplar = get_object_or_404(BookInstance,pk =pk)
+    if request.method == "POST":
+        form = RenewBook(request.POST)
+        if form.is_valid():
+            ejemplar.due_back = form.cleaned_data["renewdate"]
+            ejemplar.save()
+            return HttpResponseRedirect(reverse('allborrowed'))
         
+    else:
+        fecha_propuesta = datetime.date.today() + datetime.timedelta(weeks=3)
+        form = RenewBook(initial={"renewdate": fecha_propuesta})
+
+    return render(request,'renovacion.html',{"form":form, "ejemplar":ejemplar})
+
+
+class CrearAuthor(generic.CreateView):
+    model = Author
+    fields = "__all__"
+    initial = {'date_of_death': datetime.datetime.now()}
+
+
+class EleminarAuthor(generic.DeleteView):
+    model = Author
+    success_url = reverse_lazy("autores")
+
+class actualizarAuthor(generic.UpdateView):
+    model = Author
+    fields = ["first_name",'last_name','date_of_birth',"date_of_death"]
+    success_url = reverse_lazy("autores")
+    
+
+    
+
+
+

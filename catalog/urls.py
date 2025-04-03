@@ -10,5 +10,9 @@ urlpatterns = [
   path('registro-biblioteca/',views.Registro,name="registro"),
   path("prestados/",views.listadoPrestados.as_view(),name="prestados"),
   path("detalle-libro/<int:pk>/",views.detalleLibro.as_view(),name="detalle-libro"),
-  path("todos-prestados/",views.LibrosPrestados.as_view(),name = 'allborrowed')
+  path("todos-prestados/",views.LibrosPrestados.as_view(),name = 'allborrowed'),
+  path("book/<uuid:pk>/renew", views.Librarian_renovar, name="renovar"),
+  path("author/create", views.CrearAuthor.as_view() , name="crear-author"),
+  path("eleminar/<int:pk>/Author",views.EleminarAuthor.as_view(),name="eleminar"),
+  path("update/<int:pk>/Author",views.actualizarAuthor.as_view(),name = "update")
 ]

@@ -7,7 +7,7 @@
 <ul>
 {%for a in object_list%}
  
-<li class="{%if a.is_overdu%} text-danger {%endif%}"><a href="">{{a.book.title}} ({{a.due_back}}) - {{a.prestado.nombre}}</a></li>
+<li class="{%if a.is_overdu%} text-danger {%endif%}"><a href="{%url 'renovar' a.pk  %}">{{a.book.title}} ({{a.due_back}}) - {{a.prestado.nombre}}</a></li>
 
 {%endfor%}
 

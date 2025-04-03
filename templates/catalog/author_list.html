@@ -7,7 +7,10 @@
 
     {%for i in object_list%}
     <li><a href="{{i.get_absolute_url}}">{{i}}</a></li>
-
+    {%if perms.catalog.can_mark_returned%}
+    <button><a href="{%url 'eleminar' i.pk %}">Borrar</a></button>
+    <button><a href="{%url 'update' i.pk %}">Actualizar</a></button>
+    {%endif%}
     {%endfor%}
 </ul>
 
