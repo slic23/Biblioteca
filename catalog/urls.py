@@ -14,5 +14,8 @@ urlpatterns = [
   path("book/<uuid:pk>/renew", views.Librarian_renovar, name="renovar"),
   path("author/create", views.CrearAuthor.as_view() , name="crear-author"),
   path("eleminar/<int:pk>/Author",views.EleminarAuthor.as_view(),name="eleminar"),
-  path("update/<int:pk>/Author",views.actualizarAuthor.as_view(),name = "update")
+  path("update/<int:pk>/Author",views.actualizarAuthor.as_view(),name = "update"),
+  path("crear-libro/",views.CrearBook.as_view(),name="crearLibro"),
+  path("eliminar/<int:pk>/libro",views.eleminarBook.as_view(),name="eleminarLibro"),
+  path("actualizar/<int:pk>/libro",views.actualizarLibro.as_view(),name="actualizar")
 ]

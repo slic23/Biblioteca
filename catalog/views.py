@@ -205,7 +205,8 @@ def  Librarian_renovar(request,pk):
     return render(request,'renovacion.html',{"form":form, "ejemplar":ejemplar})
 
 
-class CrearAuthor(generic.CreateView):
+class CrearAuthor(PermissionRequiredMixin,generic.CreateView):
+    permission_required = "catalog.can_mark_returned"
     model = Author
     fields = "__all__"
     initial = {'date_of_death': datetime.datetime.now()}
@@ -222,6 +223,25 @@ class actualizarAuthor(generic.UpdateView):
     
 
     
+# challange gestion de libros editar, eleminar, actualizar 
+
+class CrearBook(PermissionRequiredMixin,generic.CreateView):
+    permission_required = "catalog.can_mark_returned"
+    model = Book
+    fields = "__all__"
+    
+    
+    
+class eleminarBook(PermissionRequiredMixin,generic.DeleteView):
+    permission_required = "catalog.can_mark_returned"
+    model = Book
+    success_url = reverse_lazy("libros")
 
 
+
+class actualizarLibro(PermissionRequiredMixin,generic.UpdateView):
+    permission_required = "catalog.can_mark_returned"
+    model = Book
+    fields = "__all__"
+    success_url = reverse_lazy("libros")
 

@@ -14,5 +14,19 @@
    <hr width="2px">
    <p style="width: 60%;">{{object.summary}}</p>
 
+
 {%endblock%}
+
+{%block sidebar%}
+{{block.super}}
+
+<hr>
+<ul class="sidebar-nav">
+   <li><a href="{%url 'eleminarLibro' object.pk %}"> Eleminar libro</a></li>
+   <li><a href="{%url 'actualizar' object.pk%}">Actuaizar libro</a></li>
+</ul>
+
+
+{%endblock%}
+
 

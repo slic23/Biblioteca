@@ -39,6 +39,13 @@
        </form>
      </li>
      <li><a href="{% url 'prestados' %}">Mis libros prestados</a></li>
+     {% if perms.catalog.can_mark_returned %}
+
+
+     <li><a href="{%url 'crear-author'%}">Crear Autor</a></li>
+     <li><a href="{%url 'crearLibro'%}">Crear Libro</a></li>
+
+     {%endif%}
    {% else %}
      
      <form action="{% url 'login' %}" method="post"> {% csrf_token %}
